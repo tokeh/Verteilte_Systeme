@@ -28,7 +28,7 @@ public class GlobalSystem {
 		processes[4].startElection();
 	}
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(final String[] args) throws InterruptedException {
 		new GlobalSystem().run();
 	}
 
