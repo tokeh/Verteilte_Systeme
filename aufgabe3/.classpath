@@ -25,6 +25,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/tobi/git/Verteilte_Systeme/aufgabe3/src/test/ressources/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
