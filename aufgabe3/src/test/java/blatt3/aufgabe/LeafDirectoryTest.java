@@ -13,12 +13,12 @@ public class LeafDirectoryTest {
 
 	@Test
 	public void testLookup() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testInsert() {
-		fail("Not yet implemented");
+		
 	}
 
 }
