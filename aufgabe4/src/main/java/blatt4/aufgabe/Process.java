@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.Observable;
 
-public abstract class Process implements Runnable {
+public abstract class Process extends Observable implements Runnable {
 	private final int id;
 	private boolean active = true;
 	protected BlockingQueue<Message> msgQueue = new LinkedBlockingQueue<Message>();

@@ -48,7 +48,9 @@ public class BullyProcess extends Process {
 
 				if (this.timerThread != null && !this.timerThread.isAlive()) {
 					this.setElectionRunning(false);
-					System.out.println("Process " + this.getID() + " is new leader!");
+					System.out.println("Process " + (this.getID() + 1) + " is new leader!");
+					setChanged();
+					notifyObservers(this.getID());
 				}
 			}
 		}

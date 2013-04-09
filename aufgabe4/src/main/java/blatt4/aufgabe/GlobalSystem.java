@@ -23,9 +23,7 @@ public class GlobalSystem {
 		processes[9].setActive(false);
 		processes[0].startElection();
 
-		Thread.sleep(4000);
-		processes[7].setActive(false);
-		processes[4].startElection();
+		LittleGUI.showGUI(processes);
 	}
 
 	public static void main(final String[] args) throws InterruptedException {
