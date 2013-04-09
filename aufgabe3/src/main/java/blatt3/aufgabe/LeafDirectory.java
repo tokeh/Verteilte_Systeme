@@ -26,8 +26,4 @@ public class LeafDirectory extends Directory {
 		this.myParent.addChild(entity, this);
 	}
 
-	public Cell getCell() {
-		return this.myCell;
-	}
-
 }
