@@ -2,20 +2,32 @@ package blatt3.aufgabe;
 
 public class LeafDirectory extends Directory {
 
+	private CompositeDirectory myParent;
+	private Cell myCell;
+	private int myEntity;
+
 	protected LeafDirectory(Cell cell, CompositeDirectory parent) {
 		super(parent);
-		// TODO Auto-generated constructor stub
+		this.myCell = cell;
+		this.myParent = parent;
 	}
 
 	@Override
 	Cell lookup(int entity) {
-		// TODO Auto-generated method stub
-		return null;
+		if (entity == this.myEntity) {
+			return this.myCell;
+		} else {
+			return this.myParent.lookup(entity);
+		}
 	}
 
 	public void insert(int entity) {
-		// TODO Auto-generated method stub
-		
+		this.myEntity = entity;
+		this.myParent.addChild(entity, this);
+	}
+
+	public Cell getCell() {
+		return this.myCell;
 	}
 
 }

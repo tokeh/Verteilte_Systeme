@@ -12,6 +12,9 @@ public class GlobalSystem {
 
 		CompositeDirectory root = new CompositeDirectory(null);
 
+		//For testing purposes only.
+		LeafDirectory testLeaf = null;
+
 		int entity = 1;
 		for (int x1 = 0; x1 < 2; x1++) {
 			for (int y1 = 0; y1 < 2; y1++) {
@@ -30,12 +33,19 @@ public class GlobalSystem {
 											+ " is in cell "
 											+ leaf.lookup(entity - 1));
 								entity++;
+								//For testing purposes only.
+								testLeaf = leaf;
 							}
 						}
 					}
 				}
 			}
 		}
+
+		System.out.println("Nicht vorhandenes Entity von root aus: "
+							+ root.lookup(500));
+		System.out.println("Nicht vorhandenes Entity von ganzen unten aus: "
+							+ testLeaf.lookup(600));
 
 	}
 

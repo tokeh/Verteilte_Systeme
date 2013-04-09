@@ -1,8 +1,8 @@
 package blatt3.aufgabe;
 
 public final class Cell {
-	private final int column;
-	private final int row;
+	final int column;
+	final int row;
 
 	public Cell(int column, int row) {
 		this.column = 'a' + column;
