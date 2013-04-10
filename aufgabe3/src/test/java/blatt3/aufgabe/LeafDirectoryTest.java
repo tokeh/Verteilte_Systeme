@@ -1,7 +1,5 @@
 package blatt3.aufgabe;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 

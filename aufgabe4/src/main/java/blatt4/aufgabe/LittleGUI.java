@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class LittleGUI extends JPanel implements ItemListener, Observer {
 
 	private Process[] processes;
