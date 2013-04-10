@@ -48,7 +48,9 @@ public class LittleGUI extends JPanel implements ItemListener, Observer {
     	for (JCheckBox box : this.boxes) {
     		if (box.isSelected()) {
     			this.processes[i].setActive(true);
-    			isActive = this.processes[i];
+    			if (isActive == null) {
+    				isActive = this.processes[i];
+    			}
     		} else {
     			this.processes[i].setActive(false);
     		}

@@ -1,5 +1,6 @@
 package blatt4.aufgabe;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -8,18 +9,20 @@ import blatt4.aufgabe.Message.MessageType;
 
 public class BullyProcess extends Process {
 
-	private UUID startedElectionUUID;
+	private HashMap<UUID, Long> joinedElections;
 	private boolean electionRunning = false;
 	private Thread timerThread;
 
 	public BullyProcess(int id) {
 		super(id);
+		this.joinedElections = new HashMap<UUID, Long>();
 	}
 
 	public void run() {
 
 		while(true) {
 
+			
 			if (this.msgQueue.peek() != null) {
 
 				Message message = null;
@@ -30,20 +33,22 @@ public class BullyProcess extends Process {
 					System.err.println("Something went wrong when reading" +
 							" from the message queue! " + e.getCause());
 				}
-	
+
 				if (message.getType().equals(MessageType.ELECT)) {
 
 					if (message.getSender() < this.getID()) {
 						this.destinations.get(message.getSender()).receiveMessage(
 								new Message(MessageType.RESPONSE, this.getID(), message.getUuid()));
-						this.startElection();
+
+						if (!this.joinedElections.containsKey(message.getUuid())) {
+							this.joinedElections.put(message.getUuid(), message.getTime());
+							this.reelect(message.getUuid());
+						}
 					}
 				} else if (message.getType().equals(MessageType.RESPONSE)) {
-
-					if (message.getUuid().equals(this.startedElectionUUID)) {
-						this.setElectionRunning(false);
-					}
+					this.setElectionRunning(false);
 				}
+
 			} else if (this.isElectionRunning()) {
 
 				if (this.timerThread != null && !this.timerThread.isAlive()) {
@@ -59,22 +64,20 @@ public class BullyProcess extends Process {
 	@Override
 	public synchronized void startElection() {
 		this.setElectionRunning(true);
-		this.setElectionUUID(UUID.randomUUID());
+
+		UUID electionUUID = UUID.randomUUID();
 
 		for (Map.Entry<Integer, Process> dest : this.destinations.entrySet()) {
 
 			if(dest.getValue().getID() > this.getID()) {
 				dest.getValue().receiveMessage(new Message(MessageType.ELECT,
-					this.getID(), this.startedElectionUUID));
+					this.getID(), electionUUID));
 			}
 		}
 
 		this.timerThread = new Thread(new TimerThread());
 		timerThread.start();
-	}
-
-	private void setElectionUUID(UUID id) {
-		this.startedElectionUUID = id;
+		System.err.printf("Started election. Process: %d, UUID: %s%n", this.getID(), electionUUID);
 	}
 
 	public synchronized boolean isElectionRunning() {
@@ -83,5 +86,21 @@ public class BullyProcess extends Process {
 
 	public synchronized void setElectionRunning(Boolean bool) {
 		this.electionRunning = bool;
+	}
+
+	private synchronized void reelect(UUID uuid) {
+		this.setElectionRunning(true);
+
+		for (Map.Entry<Integer, Process> dest : this.destinations.entrySet()) {
+
+			if(dest.getValue().getID() > this.getID()) {
+				dest.getValue().receiveMessage(new Message(MessageType.ELECT,
+					this.getID(), uuid));
+			}
+		}
+
+		this.timerThread = new Thread(new TimerThread());
+		timerThread.start();
+		System.err.printf("Reelection. Process: %d, UUID: %s%n", this.getID(), uuid.toString());
 	}
 }
