@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 import javax.swing.*;
 
@@ -57,7 +58,7 @@ public class LittleGUI extends JPanel implements ItemListener, Observer {
     		i++;
     	}
 
-    	isActive.startElection();
+    	isActive.startElection(UUID.randomUUID());
     }
  
     /**
