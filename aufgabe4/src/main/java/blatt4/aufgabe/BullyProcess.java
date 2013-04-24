@@ -8,20 +8,11 @@ import blatt4.aufgabe.Message.MessageType;
 
 public class BullyProcess extends Process {
 
-<<<<<<< HEAD
-	private HashMap<UUID, Long> joinedElection;
-=======
-	private UUID joinedElections;
->>>>>>> refs/remotes/origin/optimized
 	private UUID joinedElections;
 	private boolean electionRunning = false;
 
 	public BullyProcess(int id) {
 		super(id);
-<<<<<<< HEAD
-		this.joinedElection = new HashMap<UUID, Long>();
-=======
->>>>>>> refs/remotes/origin/optimized
 	}
 
 	public void run() {
@@ -40,10 +31,6 @@ public class BullyProcess extends Process {
 							this.destinations.get(message.getSender()).receiveMessage(
 									new Message(MessageType.RESPONSE, this.getID(), message.getUuid()));
 
-<<<<<<< HEAD
-						if (!this.joinedElection.containsKey(message.getUuid())) {
-							this.joinedElection.put(message.getUuid(), message.getTime());
-							this.reelect(message.getUuid());
 							if (this.joinedElections == null || !this.joinedElections.equals(message.getUuid())) {
 								this.joinedElections = message.getUuid();
 								this.startElection(message.getUuid());
