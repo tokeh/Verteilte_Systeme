@@ -9,13 +9,13 @@ import blatt4.aufgabe.Message.MessageType;
 
 public class BullyProcess extends Process {
 
-	private HashMap<UUID, Long> joinedElections;
+	private HashMap<UUID, Long> joinedElection;
 	private boolean electionRunning = false;
 	private Thread timerThread;
 
 	public BullyProcess(int id) {
 		super(id);
-		this.joinedElections = new HashMap<UUID, Long>();
+		this.joinedElection = new HashMap<UUID, Long>();
 	}
 
 	public void run() {
@@ -40,8 +40,8 @@ public class BullyProcess extends Process {
 						this.destinations.get(message.getSender()).receiveMessage(
 								new Message(MessageType.RESPONSE, this.getID(), message.getUuid()));
 
-						if (!this.joinedElections.containsKey(message.getUuid())) {
-							this.joinedElections.put(message.getUuid(), message.getTime());
+						if (!this.joinedElection.containsKey(message.getUuid())) {
+							this.joinedElection.put(message.getUuid(), message.getTime());
 							this.reelect(message.getUuid());
 						}
 					}
