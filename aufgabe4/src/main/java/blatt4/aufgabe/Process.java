@@ -2,6 +2,7 @@ package blatt4.aufgabe;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Observable;
@@ -12,7 +13,7 @@ public abstract class Process extends Observable implements Runnable {
 	protected BlockingQueue<Message> msgQueue = new LinkedBlockingQueue<Message>();
 	protected final Map<Integer, Process> destinations = new HashMap<Integer, Process>();
 
-	public abstract void startElection();
+	public abstract void startElection(UUID uuid);
 
 	public Process(int id) {
 		this.id = id;
