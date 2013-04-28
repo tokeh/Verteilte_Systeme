@@ -18,10 +18,9 @@ public class GlobalSystem {
 			}
 			new Thread(source).start();
 		}
-
+		
 		processes[8].setActive(false);
 		processes[9].setActive(false);
-		//processes[0].startElection(UUID.randomUUID());
 
 		LittleGUI.showGUI(processes);
 	}

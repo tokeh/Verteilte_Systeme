@@ -8,7 +8,9 @@ import blatt4.aufgabe.Message.MessageType;
 
 public class BullyProcess extends Process {
 
-	private Map<Long, UUID> joinedElections;
+	public static final int TWENTY_SECONDS = 20000;
+	
+	private Map<UUID, Long> joinedElections;
 	private boolean electionRunning;
 	private boolean checkMaster;
 
@@ -19,7 +21,7 @@ public class BullyProcess extends Process {
 		this.master = -1;
 		this.electionRunning = false;
 		this.checkMaster = false;
-		this.joinedElections = new HashMap<Long, UUID>();
+		this.joinedElections = new HashMap<UUID, Long>();
 	}
 
 	public void run() {
@@ -38,10 +40,11 @@ public class BullyProcess extends Process {
 						if (message.getSender() < this.getID()) {
 	
 							this.destinations.get(message.getSender()).receiveMessage(
-								new Message(MessageType.RESPONSE, this.getID(), message.getUuid()));
+								new Message(MessageType.RESPONSE, this.getID(),
+										message.getUuid(), System.currentTimeMillis()));
 	
-							if (this.joinedElections.isEmpty() || !this.joinedElections.containsValue(message.getUuid())) {
-								this.joinedElections.put(System.currentTimeMillis(), message.getUuid());
+							if (!this.joinedElections.containsKey(message.getUuid())) {
+								this.joinedElections.put(message.getUuid(), System.currentTimeMillis());
 								this.startElection(message.getUuid());
 							}
 						};
@@ -59,7 +62,7 @@ public class BullyProcess extends Process {
 							for (Map.Entry<Integer, Process> dest : this.destinations.entrySet()) {
 	
 								dest.getValue().receiveMessage(new Message(MessageType.NEW_MASTER,
-										this.getID(), null));
+										this.getID(), null, System.currentTimeMillis()));
 							}
 	
 							System.out.println("Process " + (this.getID() + 1) + " is new leader!");
@@ -73,7 +76,9 @@ public class BullyProcess extends Process {
 						break;
 	
 					case R_U_ALIVE:
-						this.destinations.get(message.getSender()).receiveMessage(new Message(MessageType.STILL_ALIVE, this.getID(), null));
+						this.destinations.get(message.getSender()).receiveMessage(
+								new Message(MessageType.STILL_ALIVE, this.getID(),
+										null, System.currentTimeMillis()));
 						break;
 					
 					case STILL_ALIVE:
@@ -93,7 +98,7 @@ public class BullyProcess extends Process {
 						break;
 
 					case DELETE_UUIDS:
-						System.out.println("Delete UUIDS");
+						this.deleteUUIDS(message.getTime());
 						break;
 				}
 
@@ -111,7 +116,7 @@ public class BullyProcess extends Process {
 
 			if(dest.getValue().getID() > this.getID()) {
 				dest.getValue().receiveMessage(new Message(MessageType.ELECT,
-					this.getID(), uuid));
+					this.getID(), uuid, System.currentTimeMillis()));
 			}
 		}
 		
@@ -121,13 +126,31 @@ public class BullyProcess extends Process {
 	}
 
 	private void checkMaster() {
+
 		if (this.active) {
+
 			if (this.master >= 0 && this.master != this.getID()) {
+
 				this.checkMaster = true;
-				this.destinations.get(this.master).receiveMessage(new Message(MessageType.R_U_ALIVE, this.getID(), null));
+				this.destinations.get(this.master).receiveMessage(
+						new Message(MessageType.R_U_ALIVE, this.getID(), null, System.currentTimeMillis()));
 				new Thread(new TimerThread(this, MessageType.MASTER_TIMER, 2000, false)).start();
-			} else if (this.master < 0) {
+
+			} else if (this.master != this.getID()){
 				this.startElection(UUID.randomUUID());
+			}
+		}
+	}
+
+	private void deleteUUIDS(long time) {
+
+		for (Map.Entry<UUID, Long> uuid : this.joinedElections.entrySet()) {
+
+			if (uuid.getValue() < (time - TWENTY_SECONDS)) {
+				this.joinedElections.remove(uuid);
+				System.out.println("Deleted UUID: " + uuid.getKey());
+				System.out.println("Message Time: " + time + " UUID Time: " + uuid.getValue());
+				System.out.println("DIFF: " + (time - uuid.getValue()));
 			}
 		}
 	}

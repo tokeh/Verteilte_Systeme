@@ -10,11 +10,13 @@ public class Message {
 	private final MessageType type;
 	private final int sender;
 	private final UUID uuid;
+	private final long time;
 
-	public Message(MessageType type, int sender, UUID uuid) {
+	public Message(MessageType type, int sender, UUID uuid, long time) {
 		this.type = type;
 		this.sender = sender;
 		this.uuid = uuid;
+		this.time = time;
 	}
 
 	public int getSender() {
@@ -27,5 +29,9 @@ public class Message {
 
 	public UUID getUuid() {
 		return uuid;
+	}
+
+	public long getTime() {
+		return this.time;
 	}
 }

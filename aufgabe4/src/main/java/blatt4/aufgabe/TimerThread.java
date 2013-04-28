@@ -19,15 +19,16 @@ public class TimerThread implements Runnable {
 	@Override
 	public void run() {
 
-		while(this.repeat) {
+		do {
 			try {
 				Thread.sleep(this.sleep);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 
-			this.process.receiveMessage(new Message(this.type, -1, null));
-		}
+			this.process.receiveMessage(new Message(this.type, -1, null, System.currentTimeMillis()));
+			
+		} while (this.repeat);
 	}
 
 }
