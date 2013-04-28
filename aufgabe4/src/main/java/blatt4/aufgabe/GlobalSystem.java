@@ -1,7 +1,5 @@
 package blatt4.aufgabe;
 
-import java.util.UUID;
-
 public class GlobalSystem {
 	private final static int PROCESSES = 10;
 
@@ -23,7 +21,7 @@ public class GlobalSystem {
 
 		processes[8].setActive(false);
 		processes[9].setActive(false);
-		processes[0].startElection(UUID.randomUUID());
+		//processes[0].startElection(UUID.randomUUID());
 
 		LittleGUI.showGUI(processes);
 	}

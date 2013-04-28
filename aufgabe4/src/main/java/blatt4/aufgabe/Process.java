@@ -9,11 +9,11 @@ import java.util.Observable;
 
 public abstract class Process extends Observable implements Runnable {
 	private final int id;
-	private boolean active = true;
+	protected boolean active = true;
 	protected BlockingQueue<Message> msgQueue = new LinkedBlockingQueue<Message>();
 	protected final Map<Integer, Process> destinations = new HashMap<Integer, Process>();
 
-	public abstract void startElection(UUID uuid);
+	protected abstract void startElection(UUID uuid);
 
 	public Process(int id) {
 		this.id = id;

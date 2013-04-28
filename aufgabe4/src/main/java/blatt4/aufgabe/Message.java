@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Message {
 	public enum MessageType {
-		ELECT, RESPONSE
+		ELECT, RESPONSE, CHECK_MASTER, ELECTION_TIMER, R_U_ALIVE, STILL_ALIVE, MASTER_TIMER, NEW_MASTER, DELETE_UUIDS
 	}
 
 	private final MessageType type;
