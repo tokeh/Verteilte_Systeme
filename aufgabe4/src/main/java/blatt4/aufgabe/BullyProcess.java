@@ -89,7 +89,7 @@ public class BullyProcess extends Process {
 					
 					case MASTER_TIMER:
 						if (this.checkMaster) {
-							startElection(UUID.randomUUID());
+								startElection(UUID.randomUUID());
 						}
 						break;
 					
@@ -116,7 +116,7 @@ public class BullyProcess extends Process {
 
 			if(dest.getValue().getID() > this.getID()) {
 				dest.getValue().receiveMessage(new Message(MessageType.ELECT,
-					this.getID(), uuid, System.currentTimeMillis()));
+					this.getID(), uuid, System.currentTimeMillis())); 
 			}
 		}
 		
