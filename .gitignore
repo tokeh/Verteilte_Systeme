@@ -32,6 +32,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+*/.classpath
 
 ######################
 # OS Files 
