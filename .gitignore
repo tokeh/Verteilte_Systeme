@@ -32,7 +32,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
-aufgabe1/.classpath
+**/.classpath
 
 ######################
 # OS Files 
