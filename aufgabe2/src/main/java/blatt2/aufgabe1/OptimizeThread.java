@@ -33,11 +33,11 @@ public class OptimizeThread implements Runnable {
 
 			currentTime = (after - before) / 1000000000;
 
-			//If duration is less, increase number of threads and measure again.
+			//If duration is less, increase number of threads and measure again
 			if (currentTime < bestTime) {
 				bestTime = currentTime;
 			} else {
-				//If duration is equal or higher, decrease number of threads and finish.
+				//If duration is equal or higher, decrease number of threads and finish
 				this.server.setNumberOfThreads(--currentNumberOfThreads);
 				break;
 			}
