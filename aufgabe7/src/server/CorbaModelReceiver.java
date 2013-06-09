@@ -12,6 +12,8 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
+import client.CorbaViewReceiver;
+
 import gen.AlreadyBoundException;
 import gen.CorbaForumModel;
 import gen.CorbaForumModelHelper;
@@ -59,7 +61,7 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	@Override
 	public void registerView(String name, CorbaForumView view)
 			throws AlreadyBoundException {
-		model.registerView(name, view);
+		model.registerView(name, new CorbaViewForwarder(view));
 	}
 
 	@Override

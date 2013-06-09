@@ -96,11 +96,7 @@ public class CorbaModelForwarder implements IForumModel {
 	@Override
 	public void registerView(String name, IForumView view)
 			throws AlreadyBoundException, IOException {
-		try {
-			this.receiver.registerView(name, (CorbaForumView) view);
-		} catch (gen.AlreadyBoundException e) {
-			System.err.println("registerView crashed!");
-		}
+		this.receiver.registerView(name, new CorbaViewReceiver(view));
 	}
 
 }

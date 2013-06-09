@@ -1,20 +1,20 @@
 package client;
 
+import gen.CorbaForumView;
 import gen.CorbaForumViewPOA;
 import gen.PositionedAvatar;
 
-public class CorbaViewReceiver extends CorbaForumViewPOA implements Runnable {
+public class CorbaViewReceiver extends CorbaForumViewPOA {
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+	private CorbaForumView view;
 
+	public CorbaViewReceiver(CorbaForumView view) {
+		this.view = view;
 	}
 
 	@Override
 	public void notifyView(PositionedAvatar[] folks) {
-		// TODO Auto-generated method stub
-		
+		this.view.notifyView(folks);
 	}
 
 }

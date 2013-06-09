@@ -15,6 +15,7 @@ public class CorbaForumClient {
 			client.register();
 		} catch (Exception e) {
 			System.err.println("Client crashed!");
+			e.printStackTrace();
 		}
 	}
 
