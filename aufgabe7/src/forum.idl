@@ -1,4 +1,4 @@
-module blatt7 {
+module aufgabe7 {
 	module gen {
 		exception AlreadyBoundException {};
 		exception NotBoundException {};
