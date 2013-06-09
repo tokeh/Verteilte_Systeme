@@ -23,18 +23,17 @@ public class CorbaModelForwarder implements IForumModel {
 	
 	private CorbaForumModel receiver;
 
-	public CorbaModelForwarder() {
-
-		String[] args = {"-ORBInitialPort", "1050"};
-		ORB orb = ORB.init(args, null);
+	public CorbaModelForwarder(String[] args) {
 
 		try {
+			
+			ORB orb = ORB.init(args, null);
 
 			NamingContextExt nameService = NamingContextExtHelper.narrow(
 					orb.resolve_initial_references("NameService"));
 
 			this.receiver = CorbaForumModelHelper.narrow(
-				nameService.resolve_str("HelloServer"));
+				nameService.resolve_str("ModelReceiver"));
 
 		} catch (InvalidName e) {
 			System.err.println("Model Forwarder crashed!");

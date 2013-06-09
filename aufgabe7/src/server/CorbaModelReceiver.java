@@ -24,13 +24,18 @@ import gen.NotBoundException;
 public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	
 	private CorbaForumModel model;
+	private String[] args;
+	
+	public CorbaModelReceiver(String[] args) {
+		this.args = args;
+	}
 
 	@Override
 	public void run() {
-		String[] args = {"-ORBInitialPort", "1050"};
-		ORB orb = ORB.init(args, null);
 
 		try {
+			
+			ORB orb = ORB.init(this.args, null);
 
 			POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 			rootpoa.the_POAManager().activate(); 
@@ -42,7 +47,9 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 			
 			CorbaForumModel server = CorbaForumModelHelper.narrow(ref);
 
-			nameService.rebind(nameService.to_name("HelloServer"), server);
+			nameService.rebind(nameService.to_name("ModelReceiver"), server);
+			
+			orb.run();
 
 		} catch (NotFound | CannotProceed | InvalidName e) {
 			System.err.println("Model Receiver crashed!");
@@ -55,7 +62,7 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 		} catch (WrongPolicy e) {
 			System.err.println("Model Receiver crashed!");
 		}
-		orb.run();
+		
 	}
 
 	@Override

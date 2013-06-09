@@ -8,7 +8,9 @@ public class CorbaForumServer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CorbaModelReceiver modelReceiver = new CorbaModelReceiver();
+		//run with -ORBInitialPort 1050 args
+
+		CorbaModelReceiver modelReceiver = new CorbaModelReceiver(args);
 		
 		ForumServer server = new ForumServer(modelReceiver);
 

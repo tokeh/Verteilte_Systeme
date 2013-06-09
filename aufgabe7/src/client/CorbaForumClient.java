@@ -8,7 +8,9 @@ public class CorbaForumClient {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		CorbaModelForwarder modelForwarder = new CorbaModelForwarder();
+		//run with -ORBInitialPort 1050 args
+
+		CorbaModelForwarder modelForwarder = new CorbaModelForwarder(args);
 		
 		try {
 			ForumClient client = new ForumClient(modelForwarder);

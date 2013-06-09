@@ -1,14 +1,15 @@
 package client;
 
+import forum.framework.IForumView;
 import gen.CorbaForumView;
 import gen.CorbaForumViewPOA;
 import gen.PositionedAvatar;
 
 public class CorbaViewReceiver extends CorbaForumViewPOA {
 
-	private CorbaForumView view;
+	private IForumView view;
 
-	public CorbaViewReceiver(CorbaForumView view) {
+	public CorbaViewReceiver(IForumView view) {
 		this.view = view;
 	}
 
