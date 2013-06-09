@@ -1,0 +1,31 @@
+module blatt7 {
+	module gen {
+		exception AlreadyBoundException {};
+		exception NotBoundException {};
+					
+		struct Position {
+			long x;
+			long y;
+		};
+					
+		struct PositionedAvatar {
+			string name;
+			Position position;
+		};
+					
+		typedef sequence<PositionedAvatar> Folks;
+						
+		interface CorbaForumView {
+			void notifyView(in Folks folks);
+		};
+					
+		interface CorbaForumModel {
+			void registerView(in string name, in CorbaForumView view) raises ( AlreadyBoundException );
+			void deregisterView(in string name) raises ( NotBoundException );
+			void moveNorth(in string name) raises ( NotBoundException );
+			void moveEast(in string name) raises ( NotBoundException );
+			void moveSouth(in string name) raises ( NotBoundException );
+			void moveWest(in string name) raises ( NotBoundException );
+		};
+	};	
+};	
