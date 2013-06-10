@@ -18,6 +18,7 @@ public class CorbaViewReceiver extends CorbaForumViewPOA {
 
 	@Override
 	public void notifyView(PositionedAvatar[] folks) {
+		
 		Map<String, forum.framework.Position> map = new HashMap<String, forum.framework.Position>();
         
         for (PositionedAvatar folk : folks) {

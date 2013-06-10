@@ -44,6 +44,7 @@ public class CorbaModelForwarder implements IForumModel {
 		} catch (InvalidName | NotFound | CannotProceed
 					| org.omg.CosNaming.NamingContextPackage.InvalidName e) {
 			System.err.println("Model Forwarder crashed!");
+			e.printStackTrace();
 		}
 
 	}
@@ -51,46 +52,66 @@ public class CorbaModelForwarder implements IForumModel {
 	@Override
 	public void deregisterView(String name) throws NotBoundException,
 			IOException {
+		
 		try {
+			
 			this.receiver.deregisterView(name);
+			
 		} catch (gen.NotBoundException e) {
 			System.err.println("deregisterView crashed!");
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void moveEast(String name) throws NotBoundException, IOException {
+		
 		try {
+			
 			this.receiver.moveEast(name);
+			
 		} catch (gen.NotBoundException e) {
 			System.err.println("moveEast crashed!");
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void moveNorth(String name) throws NotBoundException, IOException {
+		
 		try {
+			
 			this.receiver.moveNorth(name);
+			
 		} catch (gen.NotBoundException e) {
 			System.err.println("moveNorth crashed!");
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void moveSouth(String name) throws NotBoundException, IOException {
+		
 		try {
+			
 			this.receiver.moveSouth(name);
+			
 		} catch (gen.NotBoundException e) {
 			System.err.println("moveSouth crashed!");
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void moveWest(String name) throws NotBoundException, IOException {
+		
 		try {
+			
 			this.receiver.moveWest(name);
+			
 		} catch (gen.NotBoundException e) {
 			System.err.println("moveWest crashed!");
+			e.printStackTrace();
 		}
 	}
 
@@ -109,15 +130,15 @@ public class CorbaModelForwarder implements IForumModel {
 	            
 		        // get object reference from the servant
 		        org.omg.CORBA.Object ref = rootpoa.servant_to_reference(new CorbaViewReceiver(view));
-		        CorbaForumView href = CorbaForumViewHelper.narrow(ref);
+		        CorbaForumView forumView = CorbaForumViewHelper.narrow(ref);
 	            
-	        this.receiver.registerView(name, href);
+		        this.receiver.registerView(name, forumView);
+		        
 			} catch (InvalidName | AdapterInactive | ServantNotActive | WrongPolicy
 						| gen.AlreadyBoundException e) {
-				System.err.println("Model Forwarder crashed!");
+				System.err.println("registerView crashed!");
 				e.printStackTrace();
 			}
-	        
 		
 	}
 

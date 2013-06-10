@@ -69,6 +69,7 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 			model.registerView(name, new CorbaViewForwarder(view));
 
 		} catch (java.rmi.AlreadyBoundException e) {
+			System.err.println("registerView crashed!");
 			e.printStackTrace();
 		}
 	}
@@ -77,8 +78,11 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	public void deregisterView(String name) throws NotBoundException {
 		
 		try {
+			
 			this.model.deregisterView(name);
+			
 		} catch (java.rmi.NotBoundException e) {
+			System.err.println("deregisterView crashed!");
 			e.printStackTrace();
 		}
 	}
@@ -87,8 +91,11 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	public void moveNorth(String name) throws NotBoundException {
 		
 		try {
+			
 			this.model.moveNorth(name);
+			
 		} catch (java.rmi.NotBoundException | IOException e) {
+			System.err.println("moveNorth crashed!");
 			e.printStackTrace();
 		}
 	}
@@ -97,8 +104,11 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	public void moveEast(String name) throws NotBoundException {
 		
 		try {
+			
 			this.model.moveEast(name);
+			
 		} catch (java.rmi.NotBoundException | IOException e) {
+			System.err.println("moveEast crashed!");
 			e.printStackTrace();
 		}
 	}
@@ -107,8 +117,11 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	public void moveSouth(String name) throws NotBoundException {
 		
 		try {
+			
 			this.model.moveSouth(name);
+			
 		} catch (java.rmi.NotBoundException | IOException e) {
+			System.err.println("moveSouth crashed!");
 			e.printStackTrace();
 		}
 	}
@@ -117,8 +130,11 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	public void moveWest(String name) throws NotBoundException {
 		
 		try {
+			
 			this.model.moveWest(name);
+			
 		} catch (java.rmi.NotBoundException | IOException e) {
+			System.err.println("moveWest crashed!");
 			e.printStackTrace();
 		}
 	}

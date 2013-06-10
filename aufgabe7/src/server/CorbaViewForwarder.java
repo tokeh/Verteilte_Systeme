@@ -21,10 +21,13 @@ public class CorbaViewForwarder implements IForumView {
 		PositionedAvatar[] pos = new PositionedAvatar[folks.size()];
 		
 		int i = 0;
+		
 		for (Map.Entry<String, Position> entry : folks.entrySet()) {
+			
 			pos[i] = new PositionedAvatar(
 						entry.getKey(), new gen.Position(
 								entry.getValue().getX(), entry.getValue().getY()));
+			
 			i++;
 		}
 		
