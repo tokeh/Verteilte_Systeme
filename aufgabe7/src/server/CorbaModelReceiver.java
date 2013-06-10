@@ -1,5 +1,7 @@
 package server;
 
+import java.io.IOException;
+
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -12,8 +14,7 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import client.CorbaViewReceiver;
-
+import forum.framework.ForumModel;
 import gen.AlreadyBoundException;
 import gen.CorbaForumModel;
 import gen.CorbaForumModelHelper;
@@ -23,11 +24,12 @@ import gen.NotBoundException;
 
 public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	
-	private CorbaForumModel model;
+	private ForumModel model;
 	private String[] args;
 	
 	public CorbaModelReceiver(String[] args) {
 		this.args = args;
+		this.model = ForumModel.INSTANCE;
 	}
 
 	@Override
@@ -68,32 +70,68 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 	@Override
 	public void registerView(String name, CorbaForumView view)
 			throws AlreadyBoundException {
-		model.registerView(name, new CorbaViewForwarder(view));
+		
+		try {
+			model.registerView(name, new CorbaViewForwarder(view));
+		} catch (java.rmi.AlreadyBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void deregisterView(String name) throws NotBoundException {
-		this.model.deregisterView(name);
+		
+		try {
+			this.model.deregisterView(name);
+		} catch (java.rmi.NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void moveNorth(String name) throws NotBoundException {
-		this.model.moveNorth(name);
+		
+		try {
+			this.model.moveNorth(name);
+		} catch (java.rmi.NotBoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void moveEast(String name) throws NotBoundException {
-		this.model.moveEast(name);
+		
+		try {
+			this.model.moveEast(name);
+		} catch (java.rmi.NotBoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void moveSouth(String name) throws NotBoundException {
-		this.model.moveSouth(name);
+		
+		try {
+			this.model.moveSouth(name);
+		} catch (java.rmi.NotBoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void moveWest(String name) throws NotBoundException {
-		this.model.moveWest(name);
+		
+		try {
+			this.model.moveWest(name);
+		} catch (java.rmi.NotBoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

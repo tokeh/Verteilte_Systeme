@@ -10,6 +10,11 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
+import org.omg.PortableServer.POA;
+import org.omg.PortableServer.POAHelper;
+import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
+import org.omg.PortableServer.POAPackage.ServantNotActive;
+import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import server.CorbaModelReceiver;
 
@@ -18,16 +23,19 @@ import forum.framework.IForumView;
 import gen.CorbaForumModel;
 import gen.CorbaForumModelHelper;
 import gen.CorbaForumView;
+import gen.CorbaForumViewHelper;
 
 public class CorbaModelForwarder implements IForumModel {
 	
 	private CorbaForumModel receiver;
+	private String[] args;
 
 	public CorbaModelForwarder(String[] args) {
+		this.args = args;
 
 		try {
 			
-			ORB orb = ORB.init(args, null);
+			ORB orb = ORB.init(this.args, null);
 
 			NamingContextExt nameService = NamingContextExtHelper.narrow(
 					orb.resolve_initial_references("NameService"));
@@ -95,7 +103,39 @@ public class CorbaModelForwarder implements IForumModel {
 	@Override
 	public void registerView(String name, IForumView view)
 			throws AlreadyBoundException, IOException {
-		this.receiver.registerView(name, new CorbaViewReceiver(view));
+	        
+			try {
+				
+				// create and initialize the ORB
+				ORB orb = ORB.init(this.args, null);
+				
+				// get reference to rootpoa & activate the POAManager
+				POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+				rootpoa.the_POAManager().activate();
+	            
+		        // get object reference from the servant
+		        org.omg.CORBA.Object ref = rootpoa.servant_to_reference(new CorbaViewReceiver(view));
+		        CorbaForumView href = CorbaForumViewHelper.narrow(ref);
+	            
+	        this.receiver.registerView(name, href);
+			} catch (InvalidName e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (AdapterInactive e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ServantNotActive e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (WrongPolicy e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (gen.AlreadyBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+		
 	}
 
 }
