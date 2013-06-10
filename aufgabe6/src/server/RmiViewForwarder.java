@@ -11,15 +11,15 @@ import forum.framework.Position;
 
 public class RmiViewForwarder implements IForumView {
 	
-	private RmiViewReceiver receiver;
+	private IForumView view;
 
 	public RmiViewForwarder(IForumView view) throws RemoteException {
-		this.receiver = new RmiViewReceiver(view);
+		this.view = view;
 	}
 
 	@Override
 	public void notifyView(Map<String, Position> folks) throws IOException {
-		this.receiver.notifyView(folks);
+		this.view.notifyView(folks);
 	}
 
 }
