@@ -1,5 +1,6 @@
-package client;
+package setup;
 
+import client.CorbaModelForwarder;
 import forum.framework.ForumClient;
 
 public class CorbaForumClient {

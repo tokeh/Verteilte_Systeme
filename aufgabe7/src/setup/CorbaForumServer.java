@@ -1,5 +1,6 @@
-package server;
+package setup;
 
+import server.CorbaModelReceiver;
 import forum.framework.ForumServer;
 
 public class CorbaForumServer {
