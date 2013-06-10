@@ -1,7 +1,6 @@
 package server;
 
 import java.io.IOException;
-import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

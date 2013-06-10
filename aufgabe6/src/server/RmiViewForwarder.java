@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Map;
 
-import client.RmiViewReceiver;
-
 import forum.framework.IForumView;
 import forum.framework.Position;
 

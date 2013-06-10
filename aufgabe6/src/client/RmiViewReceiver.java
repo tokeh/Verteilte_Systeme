@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 
-import forum.framework.ForumView;
 import forum.framework.IForumView;
 import forum.framework.Position;
 
