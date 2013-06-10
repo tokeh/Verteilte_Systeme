@@ -3,7 +3,6 @@ package client;
 import java.io.IOException;
 import java.util.Map;
 
-import forum.framework.ForumView;
 import forum.framework.IForumView;
 import forum.framework.Position;
 

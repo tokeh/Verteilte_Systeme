@@ -6,7 +6,6 @@ import java.rmi.NotBoundException;
 
 import server.LocalModelReceiver;
 
-import forum.framework.ForumView;
 import forum.framework.IForumModel;
 import forum.framework.IForumView;
 

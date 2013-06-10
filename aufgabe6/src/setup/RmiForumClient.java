@@ -1,5 +1,6 @@
-package client;
+package setup;
 
+import client.RmiModelForwarder;
 import forum.framework.ForumClient;
 
 public class RmiForumClient {

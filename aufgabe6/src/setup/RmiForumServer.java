@@ -1,5 +1,6 @@
-package server;
+package setup;
 
+import server.RmiModelReceiver;
 import forum.framework.ForumServer;
 
 public class RmiForumServer {
