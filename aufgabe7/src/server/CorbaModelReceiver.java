@@ -53,15 +53,8 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 			
 			orb.run();
 
-		} catch (NotFound | CannotProceed | InvalidName e) {
-			System.err.println("Model Receiver crashed!");
-		} catch (org.omg.CORBA.ORBPackage.InvalidName e) {
-			System.err.println("Model Receiver crashed!");
-		} catch (AdapterInactive e) {
-			System.err.println("Model Receiver crashed!");
-		} catch (ServantNotActive e) {
-			System.err.println("Model Receiver crashed!");
-		} catch (WrongPolicy e) {
+		} catch (NotFound | CannotProceed | InvalidName | org.omg.CORBA.ORBPackage.InvalidName
+					| AdapterInactive | ServantNotActive | WrongPolicy e) {
 			System.err.println("Model Receiver crashed!");
 		}
 		
@@ -72,9 +65,10 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 			throws AlreadyBoundException {
 		
 		try {
+			
 			model.registerView(name, new CorbaViewForwarder(view));
+
 		} catch (java.rmi.AlreadyBoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -85,7 +79,6 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 		try {
 			this.model.deregisterView(name);
 		} catch (java.rmi.NotBoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -96,7 +89,6 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 		try {
 			this.model.moveNorth(name);
 		} catch (java.rmi.NotBoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -107,7 +99,6 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 		try {
 			this.model.moveEast(name);
 		} catch (java.rmi.NotBoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -118,7 +109,6 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 		try {
 			this.model.moveSouth(name);
 		} catch (java.rmi.NotBoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -129,7 +119,6 @@ public class CorbaModelReceiver extends CorbaForumModelPOA implements Runnable {
 		try {
 			this.model.moveWest(name);
 		} catch (java.rmi.NotBoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

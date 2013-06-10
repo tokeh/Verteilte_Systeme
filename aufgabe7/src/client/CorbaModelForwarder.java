@@ -16,8 +16,6 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import server.CorbaModelReceiver;
-
 import forum.framework.IForumModel;
 import forum.framework.IForumView;
 import gen.CorbaForumModel;
@@ -43,15 +41,11 @@ public class CorbaModelForwarder implements IForumModel {
 			this.receiver = CorbaForumModelHelper.narrow(
 				nameService.resolve_str("ModelReceiver"));
 
-		} catch (InvalidName e) {
-			System.err.println("Model Forwarder crashed!");
-		} catch (NotFound e) {
-			System.err.println("Model Forwarder crashed!");
-		} catch (CannotProceed e) {
-			System.err.println("Model Forwarder crashed!");
-		} catch (org.omg.CosNaming.NamingContextPackage.InvalidName e) {
+		} catch (InvalidName | NotFound | CannotProceed
+					| org.omg.CosNaming.NamingContextPackage.InvalidName e) {
 			System.err.println("Model Forwarder crashed!");
 		}
+
 	}
 
 	@Override
@@ -118,20 +112,9 @@ public class CorbaModelForwarder implements IForumModel {
 		        CorbaForumView href = CorbaForumViewHelper.narrow(ref);
 	            
 	        this.receiver.registerView(name, href);
-			} catch (InvalidName e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (AdapterInactive e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ServantNotActive e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (WrongPolicy e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (gen.AlreadyBoundException e) {
-				// TODO Auto-generated catch block
+			} catch (InvalidName | AdapterInactive | ServantNotActive | WrongPolicy
+						| gen.AlreadyBoundException e) {
+				System.err.println("Model Forwarder crashed!");
 				e.printStackTrace();
 			}
 	        

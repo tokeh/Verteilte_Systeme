@@ -3,8 +3,6 @@ package server;
 import java.io.IOException;
 import java.util.Map;
 
-import client.CorbaViewReceiver;
-
 import forum.framework.IForumView;
 import forum.framework.Position;
 import gen.CorbaForumView;

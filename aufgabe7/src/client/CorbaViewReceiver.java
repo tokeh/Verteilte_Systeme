@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import forum.framework.IForumView;
-import gen.CorbaForumView;
 import gen.CorbaForumViewPOA;
 import gen.PositionedAvatar;
 
@@ -26,7 +25,9 @@ public class CorbaViewReceiver extends CorbaForumViewPOA {
         }
         
         try {
+
             this.view.notifyView(map);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
