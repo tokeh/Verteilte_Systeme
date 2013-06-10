@@ -16,7 +16,10 @@ public class CorbaForumServer {
 		ForumServer server = new ForumServer(modelReceiver);
 
 		try {
+			
+			System.out.println("CorbaForumServer running...");
 			server.run();
+			
 		} catch (Exception e) {
 			System.err.println("Server crashed!");
 		}
