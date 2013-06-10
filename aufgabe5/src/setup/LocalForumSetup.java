@@ -4,7 +4,6 @@ import client.LocalModelForwarder;
 import server.LocalModelReceiver;
 import forum.framework.ForumClient;
 import forum.framework.ForumServer;
-import forum.framework.ForumView;
 
 public class LocalForumSetup {
 
